@@ -3,857 +3,205 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pico Studio — Community Makerspace, Coburg North</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
+  <title>Pico Studio — Hard Launch Open Studio Night</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --periwinkle: #8B9CF4;
       --dark-blue:  #0932C0;
       --lime:       #DEF577;
       --orange:     #FF6633;
-      --baby-blue:  #C4EFF8;
-      --green:      #3C8350;
-      --peach:      #FFD3AF;
-      --black:      #2E2E2E;
-      --white:      #FFFFFF;
+      --periwinkle: #8B9CF4;
       --off-white:  #F7F6F2;
+      --black:      #2E2E2E;
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--off-white);
-      color: var(--black);
-      overflow-x: hidden;
-    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--black); overflow-x: hidden; }
 
     /* ── NAV ── */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 48px;
-      background: var(--dark-blue);
-      border-bottom: 2px solid rgba(255,255,255,0.08);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 48px;
+      background: rgba(9,50,192,0.95);
+      backdrop-filter: blur(12px);
     }
-
-    .nav-logo {
-      font-family: 'Space Mono', monospace;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--lime);
-      text-decoration: none;
-      letter-spacing: -0.5px;
-    }
-
+    .nav-logo { font-family: 'Space Mono', monospace; font-size: 1rem; font-weight: 700; color: var(--lime); text-decoration: none; }
     .nav-logo span { color: var(--periwinkle); }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.75);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--lime); }
-
-    .nav-cta {
-      background: var(--lime);
-      color: var(--dark-blue) !important;
-      padding: 8px 18px;
-      border-radius: 6px;
-      font-weight: 700 !important;
-    }
-
-    .nav-cta:hover { background: var(--orange); color: white !important; }
+    .nav-cta { background: var(--orange); color: white; padding: 9px 20px; border-radius: 6px; font-weight: 700; font-size: 0.85rem; text-decoration: none; transition: transform 0.15s; }
+    .nav-cta:hover { transform: translateY(-2px); }
 
     /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      background: var(--dark-blue);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding: 120px 48px 80px;
-      position: relative;
-      overflow: hidden;
-      gap: 48px;
-    }
+    .hero { position: relative; width: 100%; padding-top: 60px; }
 
-    /* decorative blobs */
-    .hero::before {
-      content: '';
+    .hero-img { width: 100%; display: block; max-height: 88vh; object-fit: cover; object-position: left center; }
+
+    /* overlay in blank right space of the banner */
+    .hero-overlay {
       position: absolute;
-      width: 500px; height: 500px;
-      background: var(--periwinkle);
-      border-radius: 50%;
-      right: -120px; top: -120px;
-      opacity: 0.35;
-      pointer-events: none;
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute;
-      width: 300px; height: 300px;
-      background: var(--lime);
-      border-radius: 50%;
-      right: 120px; bottom: -80px;
-      opacity: 0.2;
-      pointer-events: none;
-    }
-
-    .hero-blob-3 {
-      position: absolute;
-      width: 200px; height: 200px;
-      background: var(--orange);
-      border-radius: 50%;
-      left: 40%; bottom: 60px;
-      opacity: 0.15;
-      pointer-events: none;
-    }
-
-    .hero-left { position: relative; z-index: 2; }
-
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: var(--baby-blue);
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 6px 14px;
-      border-radius: 99px;
-      margin-bottom: 28px;
-      animation: fadeUp 0.6s ease both;
-    }
-
-    .hero-tag .dot {
-      width: 6px; height: 6px;
-      background: var(--lime);
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.7); }
-    }
-
-    .hero h1 {
-      font-family: 'Space Mono', monospace;
-      font-size: clamp(2.4rem, 5vw, 3.8rem);
-      font-weight: 700;
-      color: white;
-      line-height: 1.08;
-      letter-spacing: -1.5px;
-      margin-bottom: 24px;
-      animation: fadeUp 0.6s 0.1s ease both;
-    }
-
-    .hero h1 .accent { color: var(--lime); }
-    .hero h1 .accent-o { color: var(--orange); }
-
-    .hero-desc {
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.7);
-      line-height: 1.75;
-      max-width: 440px;
-      margin-bottom: 36px;
-      font-weight: 300;
-      animation: fadeUp 0.6s 0.2s ease both;
-    }
-
-    .hero-btns {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      animation: fadeUp 0.6s 0.3s ease both;
-    }
-
-    .btn-lime {
-      background: var(--lime);
-      color: var(--dark-blue);
-      border: none;
-      padding: 14px 26px;
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: transform 0.15s, background 0.15s;
-    }
-
-    .btn-lime:hover { background: white; transform: translateY(-2px); }
-
-    .btn-ghost-white {
-      background: transparent;
-      color: white;
-      border: 2px solid rgba(255,255,255,0.4);
-      padding: 12px 26px;
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 600;
-      font-size: 0.9rem;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: border-color 0.15s, color 0.15s;
-    }
-
-    .btn-ghost-white:hover { border-color: white; color: white; }
-
-    /* hero right — stats/image placeholder */
-    .hero-right {
-      position: relative;
-      z-index: 2;
+      top: 50%;
+      right: 3.5%;
+      transform: translateY(-45%);
+      width: 21%;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      animation: fadeUp 0.6s 0.2s ease both;
-    }
-
-    .hero-img-placeholder {
-      background: var(--periwinkle);
-      border-radius: 16px;
-      height: 300px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 0.08em;
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.15);
-    }
-
-    .hero-img-placeholder::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(222,245,119,0.15) 0%, rgba(255,102,51,0.1) 100%);
-    }
-
-    .placeholder-text { position: relative; z-index: 1; text-align: center; }
-    .placeholder-text .icon { font-size: 2.5rem; margin-bottom: 8px; }
-
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
+      z-index: 10;
     }
 
-    .stat {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 12px;
-      padding: 16px;
+    .overlay-tag {
+      display: inline-block;
+      background: var(--lime);
+      color: var(--dark-blue);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+
+    .overlay-price {
+      font-family: 'Space Mono', monospace;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--dark-blue);
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+
+    .overlay-price-note {
+      font-size: 0.72rem;
+      color: var(--dark-blue);
+      font-weight: 600;
+      margin-top: -6px;
+      line-height: 1.5;
+      opacity: 0.75;
+    }
+
+    .overlay-divider { height: 1px; background: var(--dark-blue); opacity: 0.15; }
+
+    .overlay-includes { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .overlay-includes li {
+      font-size: 0.72rem; color: var(--dark-blue);
+      display: flex; align-items: center; gap: 7px; font-weight: 500; line-height: 1.3;
+    }
+    .overlay-includes li::before {
+      content: '✓';
+      background: var(--dark-blue); color: var(--lime);
+      min-width: 16px; height: 16px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.5rem; font-weight: 700; flex-shrink: 0;
+    }
+
+    .overlay-btn {
+      background: var(--orange); color: white;
+      font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.8rem;
+      padding: 11px 14px; border-radius: 8px; text-decoration: none;
+      text-align: center; display: block;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 16px rgba(255,102,51,0.45);
+    }
+    .overlay-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,102,51,0.5); }
+
+    .overlay-limited { font-size: 0.65rem; color: var(--dark-blue); opacity: 0.55; text-align: center; font-weight: 500; line-height: 1.4; }
+
+    /* mobile ticket — shown below hero on small screens */
+    .mobile-ticket {
+      display: none;
+      background: var(--lime);
+      padding: 28px 20px;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
       text-align: center;
     }
+    .mobile-ticket .overlay-price { font-size: 2.2rem; }
+    .mobile-ticket .overlay-btn { width: 100%; max-width: 320px; font-size: 0.9rem; padding: 14px; }
 
-    .stat-num {
-      font-family: 'Space Mono', monospace;
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--lime);
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-
-    .stat-label {
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 0.04em;
+    @media (max-width: 900px) {
+      .hero-overlay { display: none; }
+      .mobile-ticket { display: flex; }
     }
 
     /* ── MARQUEE ── */
-    .marquee-wrap {
+    .marquee-wrap { background: var(--dark-blue); padding: 12px 0; overflow: hidden; white-space: nowrap; }
+    .marquee-track { display: inline-flex; animation: marquee 18s linear infinite; }
+    .marquee-item { font-family: 'Space Mono', monospace; font-size: 0.72rem; font-weight: 700; color: var(--lime); letter-spacing: 0.06em; text-transform: uppercase; padding: 0 24px; }
+    .marquee-item .sep { color: var(--orange); margin: 0 4px; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── EVENT STRIP ── */
+    .event-strip {
       background: var(--lime);
-      padding: 14px 0;
-      overflow: hidden;
-      white-space: nowrap;
+      padding: 36px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
     }
+    .strip-details { display: flex; gap: 36px; flex-wrap: wrap; align-items: center; }
+    .strip-item { display: flex; flex-direction: column; gap: 2px; }
+    .strip-label { font-family: 'Space Mono', monospace; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(9,50,192,0.5); }
+    .strip-value { font-family: 'Space Mono', monospace; font-size: 1rem; font-weight: 700; color: var(--dark-blue); }
+    .strip-btn { background: var(--dark-blue); color: var(--lime); font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.88rem; padding: 13px 26px; border-radius: 8px; text-decoration: none; white-space: nowrap; transition: transform 0.15s; }
+    .strip-btn:hover { transform: translateY(-2px); }
 
-    .marquee-track {
-      display: inline-flex;
-      gap: 0;
-      animation: marquee 18s linear infinite;
-    }
-
-    .marquee-item {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--dark-blue);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 0 32px;
-    }
-
-    .marquee-item .sep { color: var(--orange); margin: 0 8px; }
-
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
-    /* ── SECTION COMMON ── */
-    section { padding: 96px 48px; }
-
-    .section-eyebrow {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-family: 'Space Mono', monospace;
-      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -1px;
-      color: var(--dark-blue);
-      margin-bottom: 20px;
-    }
-
+    /* ── WHAT'S ON ── */
+    .whats-on { background: var(--off-white); padding: 80px 48px; }
+    .whats-on-header { text-align: center; margin-bottom: 48px; }
+    .eyebrow { font-family: 'Space Mono', monospace; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
+    .section-title { font-family: 'Space Mono', monospace; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; color: var(--dark-blue); letter-spacing: -1px; line-height: 1.1; }
     .section-title .accent { color: var(--orange); }
 
-    .section-body {
-      font-size: 1rem;
-      line-height: 1.75;
-      color: #555;
-      max-width: 540px;
-      font-weight: 300;
-    }
+    .night-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; max-width: 1100px; margin: 0 auto; }
+    .night-card { border-radius: 14px; padding: 24px 20px; transition: transform 0.2s; }
+    .night-card:hover { transform: translateY(-3px); }
+    .night-card:nth-child(1) { background: var(--periwinkle); }
+    .night-card:nth-child(2) { background: var(--lime); }
+    .night-card:nth-child(3) { background: #FFD3AF; }
+    .night-card:nth-child(4) { background: #C4EFF8; }
+    .night-card:nth-child(5) { background: #3C8350; }
+    .night-card:nth-child(6) { background: var(--orange); }
+    .night-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .night-title { font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 700; color: var(--dark-blue); margin-bottom: 5px; }
+    .night-card:nth-child(5) .night-title, .night-card:nth-child(6) .night-title { color: white; }
+    .night-desc { font-size: 0.78rem; line-height: 1.6; color: rgba(0,0,0,0.6); }
+    .night-card:nth-child(5) .night-desc, .night-card:nth-child(6) .night-desc { color: rgba(255,255,255,0.75); }
 
     /* ── ABOUT ── */
-    .about {
-      background: white;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: center;
-    }
-
-    .about-images {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 200px 200px;
-      gap: 12px;
-    }
-
-    .about-img {
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .about-img:first-child {
-      grid-column: span 2;
-      background: var(--periwinkle);
-    }
-
-    .about-img:nth-child(2) { background: var(--baby-blue); }
-    .about-img:nth-child(3) { background: var(--peach); }
-
-    .about-text .section-body { margin-bottom: 28px; }
-
-    .about-pillars {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .pillar {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 14px 16px;
-      background: var(--off-white);
-      border-radius: 10px;
-      border-left: 3px solid var(--periwinkle);
-    }
-
-    .pillar-icon { font-size: 1.3rem; flex-shrink: 0; }
-
-    .pillar-title {
-      font-weight: 700;
-      font-size: 0.88rem;
-      margin-bottom: 2px;
-      color: var(--dark-blue);
-    }
-
-    .pillar-desc { font-size: 0.8rem; color: #777; line-height: 1.5; }
-
-    /* ── WHAT'S HERE ── */
-    .whats-here {
-      background: var(--dark-blue);
-    }
-
-    .whats-here .section-title { color: white; }
-    .whats-here .section-body { color: rgba(255,255,255,0.6); margin-bottom: 48px; }
-    .whats-here .section-eyebrow { color: var(--lime); }
-
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-    }
-
-    .feature-card {
-      border-radius: 14px;
-      padding: 28px 24px;
-      text-decoration: none;
-      display: block;
-      transition: transform 0.2s, box-shadow 0.2s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.2); }
-
-    .feature-card.c-periwinkle { background: var(--periwinkle); }
-    .feature-card.c-lime { background: var(--lime); }
-    .feature-card.c-peach { background: var(--peach); }
-    .feature-card.c-baby { background: var(--baby-blue); }
-    .feature-card.c-green { background: var(--green); }
-
-    .card-icon { font-size: 2rem; margin-bottom: 16px; }
-
-    .card-title {
-      font-family: 'Space Mono', monospace;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--dark-blue);
-      margin-bottom: 8px;
-      line-height: 1.2;
-    }
-
-    .feature-card.c-green .card-title { color: white; }
-
-    .card-desc {
-      font-size: 0.82rem;
-      line-height: 1.6;
-      color: rgba(0,0,0,0.6);
-      margin-bottom: 20px;
-    }
-
-    .feature-card.c-green .card-desc { color: rgba(255,255,255,0.7); }
-
-    .card-link {
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--dark-blue);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .feature-card.c-green .card-link { color: var(--lime); }
-
-    /* ── MEMBERSHIP ── */
-    .membership { background: var(--off-white); }
-
-    .tiers-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin-top: 48px;
-    }
-
-    .tier-card {
-      border-radius: 14px;
-      padding: 28px 24px;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.2s;
-    }
-
-    .tier-card:hover { transform: translateY(-3px); }
-
-    .tier-card.t-community { background: var(--baby-blue); }
-    .tier-card.t-maker { background: var(--dark-blue); }
-    .tier-card.t-studio { background: var(--lime); }
-    .tier-card.t-concession { background: var(--peach); }
-
-    .tier-badge {
-      display: inline-block;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 99px;
-      margin-bottom: 16px;
-    }
-
-    .t-community .tier-badge { background: var(--dark-blue); color: var(--lime); }
-    .t-maker .tier-badge { background: var(--lime); color: var(--dark-blue); }
-    .t-studio .tier-badge { background: var(--dark-blue); color: white; }
-    .t-concession .tier-badge { background: var(--green); color: white; }
-
-    .tier-name {
-      font-family: 'Space Mono', monospace;
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 4px;
-      color: var(--dark-blue);
-    }
-
-    .t-maker .tier-name { color: white; }
-
-    .tier-price-row { display: flex; align-items: baseline; gap: 4px; margin-bottom: 4px; }
-
-    .tier-price {
-      font-family: 'Space Mono', monospace;
-      font-size: 2.2rem;
-      font-weight: 700;
-    }
-
-    .t-community .tier-price { color: var(--dark-blue); }
-    .t-maker .tier-price { color: var(--lime); }
-    .t-studio .tier-price { color: var(--dark-blue); }
-    .t-concession .tier-price { color: var(--dark-blue); }
-
-    .tier-freq { font-size: 0.8rem; color: rgba(0,0,0,0.45); }
-    .t-maker .tier-freq { color: rgba(255,255,255,0.45); }
-
-    .tier-divider {
-      height: 1px;
-      background: rgba(0,0,0,0.1);
-      margin: 18px 0;
-    }
-
-    .t-maker .tier-divider { background: rgba(255,255,255,0.15); }
-
-    .tier-perks { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
-
-    .tier-perks li {
-      font-size: 0.82rem;
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-      line-height: 1.45;
-      color: rgba(0,0,0,0.7);
-    }
-
-    .t-maker .tier-perks li { color: rgba(255,255,255,0.8); }
-
-    .tier-perks li::before {
-      content: '✓';
-      font-weight: 700;
-      font-size: 0.75rem;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .t-community .tier-perks li::before { color: var(--dark-blue); }
-    .t-maker .tier-perks li::before { color: var(--lime); }
-    .t-studio .tier-perks li::before { color: var(--orange); }
-    .t-concession .tier-perks li::before { color: var(--green); }
-
-    .tier-btn {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      display: block;
-      transition: opacity 0.15s;
-    }
-
-    .tier-btn:hover { opacity: 0.85; }
-
-    .t-community .tier-btn { background: var(--dark-blue); color: white; }
-    .t-maker .tier-btn { background: var(--lime); color: var(--dark-blue); }
-    .t-studio .tier-btn { background: var(--dark-blue); color: white; }
-    .t-concession .tier-btn { background: var(--dark-blue); color: white; }
-
-    /* ── STUDIO SPACE ── */
-    .studio-space {
-      background: white;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: center;
-    }
-
-    .studio-img-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .studio-img-block {
-      border-radius: 10px;
-      aspect-ratio: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-    }
-
-    .studio-img-block:nth-child(1) { background: var(--periwinkle); }
-    .studio-img-block:nth-child(2) { background: var(--lime); }
-    .studio-img-block:nth-child(3) { background: var(--peach); aspect-ratio: unset; grid-column: span 2; height: 140px; }
-
-    .studio-text .section-body { margin-bottom: 28px; }
-
-    .studio-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
-
-    .studio-list li {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.9rem;
-      color: #444;
-    }
-
-    .studio-list li .bullet {
-      width: 8px; height: 8px;
-      background: var(--orange);
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .btn-dark {
-      background: var(--dark-blue);
-      color: white;
-      border: none;
-      padding: 14px 26px;
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: background 0.15s;
-    }
-
-    .btn-dark:hover { background: var(--periwinkle); }
-
-    /* ── CONTACT CTA ── */
-    .contact-cta {
-      background: var(--periwinkle);
-      text-align: center;
-      padding: 96px 48px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .contact-cta::before {
-      content: '';
-      position: absolute;
-      width: 400px; height: 400px;
-      background: var(--dark-blue);
-      border-radius: 50%;
-      left: -120px; top: -120px;
-      opacity: 0.2;
-    }
-
-    .contact-cta::after {
-      content: '';
-      position: absolute;
-      width: 300px; height: 300px;
-      background: var(--lime);
-      border-radius: 50%;
-      right: -80px; bottom: -80px;
-      opacity: 0.25;
-    }
-
-    .contact-cta .section-eyebrow { color: var(--dark-blue); position: relative; z-index: 1; }
-
-    .contact-cta h2 {
-      font-family: 'Space Mono', monospace;
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      font-weight: 700;
-      color: white;
-      letter-spacing: -1px;
-      margin-bottom: 16px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .contact-cta p {
-      font-size: 1rem;
-      color: rgba(255,255,255,0.8);
-      max-width: 480px;
-      margin: 0 auto 36px;
-      line-height: 1.7;
-      position: relative;
-      z-index: 1;
-    }
-
-    .contact-cta-btns {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 1;
-    }
-
-    .btn-orange {
-      background: var(--orange);
-      color: white;
-      border: none;
-      padding: 14px 28px;
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: transform 0.15s;
-    }
-
-    .btn-orange:hover { transform: translateY(-2px); }
+    .about-pico { background: var(--dark-blue); padding: 80px 48px; text-align: center; }
+    .about-pico .eyebrow { color: var(--lime); margin-bottom: 12px; }
+    .about-pico h2 { font-family: 'Space Mono', monospace; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; color: white; letter-spacing: -1px; line-height: 1.15; max-width: 640px; margin: 0 auto 20px; }
+    .about-pico p { font-size: 1rem; color: rgba(255,255,255,0.65); line-height: 1.8; max-width: 580px; margin: 0 auto; font-weight: 300; }
+
+    /* ── FINAL CTA ── */
+    .final-cta { background: var(--orange); padding: 64px 48px; text-align: center; position: relative; overflow: hidden; }
+    .final-cta::before { content: ''; position: absolute; width: 300px; height: 300px; background: white; border-radius: 50%; right: -80px; top: -80px; opacity: 0.08; }
+    .final-cta-inner { position: relative; z-index: 1; }
+    .final-cta h2 { font-family: 'Space Mono', monospace; font-size: clamp(1.5rem, 3.5vw, 2.6rem); font-weight: 700; color: white; letter-spacing: -1px; line-height: 1.1; margin-bottom: 12px; }
+    .final-cta p { font-size: 1rem; color: rgba(255,255,255,0.85); margin-bottom: 32px; line-height: 1.6; }
+    .final-cta p strong { color: white; }
+    .btn-white { background: white; color: var(--orange); font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 1rem; padding: 16px 36px; border-radius: 10px; text-decoration: none; display: inline-block; transition: transform 0.15s; box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
+    .btn-white:hover { transform: translateY(-2px); }
 
     /* ── FOOTER ── */
-    footer {
-      background: var(--dark-blue);
-      color: rgba(255,255,255,0.6);
-      padding: 56px 48px 32px;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 48px;
-      margin-bottom: 48px;
-    }
-
-    .footer-brand .nav-logo {
-      font-size: 1.2rem;
-      display: inline-block;
-      margin-bottom: 12px;
-    }
-
-    .footer-brand p {
-      font-size: 0.85rem;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.5);
-      max-width: 240px;
-      margin-bottom: 16px;
-    }
-
-    .footer-col h4 {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--lime);
-      margin-bottom: 16px;
-    }
-
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-
-    .footer-col a {
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.55);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .footer-col a:hover { color: white; }
-
-    .footer-address {
-      font-size: 0.85rem;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.55);
-    }
-
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding-top: 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
-
-    .acknowledgement {
-      background: rgba(255,255,255,0.05);
-      border-left: 3px solid var(--periwinkle);
-      padding: 16px 20px;
-      border-radius: 0 8px 8px 0;
-      margin-bottom: 40px;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.5);
-      line-height: 1.65;
-      font-style: italic;
-    }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    footer { background: var(--dark-blue); border-top: 1px solid rgba(255,255,255,0.08); padding: 28px 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-logo { font-family: 'Space Mono', monospace; font-size: 0.95rem; font-weight: 700; color: var(--lime); text-decoration: none; }
+    .footer-logo span { color: var(--periwinkle); }
+    footer p { font-size: 0.75rem; color: rgba(255,255,255,0.35); }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 14px 20px; }
-      .nav-links { display: none; }
-
-      .hero { grid-template-columns: 1fr; padding: 100px 20px 60px; }
-      .hero-right { display: none; }
-
-      section { padding: 64px 20px; }
-
-      .about { grid-template-columns: 1fr; }
-      .about-images { display: none; }
-
-      .studio-space { grid-template-columns: 1fr; }
-      .studio-img-grid { display: none; }
-
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-      .footer-brand { grid-column: span 2; }
-
-      .contact-cta { padding: 64px 20px; }
+      .event-strip { padding: 28px 20px; flex-direction: column; text-align: center; }
+      .strip-details { justify-content: center; gap: 20px; }
+      .whats-on, .about-pico, .final-cta { padding: 60px 20px; }
+      footer { padding: 24px 20px; flex-direction: column; text-align: center; }
     }
   </style>
 </head>
@@ -861,324 +209,151 @@
 
   <!-- NAV -->
   <nav>
-    <a href="index.html" class="nav-logo">PICO<span>_</span>STUDIO</a>
-    <ul class="nav-links">
-      <li><a href="about.html">About</a></li>
-      <li><a href="membership.html">Membership</a></li>
-      <li><a href="events.html">Events</a></li>
-      <li><a href="workshop.html">Workshop</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="membership.html" class="nav-cta">Join Us</a></li>
-    </ul>
+    <a href="#" class="nav-logo">PICO<span>_</span>STUDIO</a>
+    <a href="https://events.humanitix.com/pico-hard-launch-open-studio-night" target="_blank" class="nav-cta">Get Tickets — $15</a>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-blob-3"></div>
-
-    <div class="hero-left">
-      <div class="hero-tag">
-        <span class="dot"></span>
-        Coburg North, Melbourne
-      </div>
-      <h1>
-        A space<br>
-        to <span class="accent">make,</span><br>
-        learn &<br>
-        <span class="accent-o">belong.</span>
-      </h1>
-      <p class="hero-desc">
-        Pico Studio is a community-run, not-for-profit makerspace offering affordable studio space and shared access to tools, a workshop, and a crew of people who love making things.
-      </p>
-      <div class="hero-btns">
-        <a href="membership.html" class="btn-lime">Become a Member</a>
-        <a href="about.html" class="btn-ghost-white">Explore the Space</a>
-      </div>
+  <!-- HERO with overlaid text -->
+  <div class="hero">
+    <img src="hero-banner.png" alt="Pico Hard Launch — Open Studio Night, June 13 from 6PM" class="hero-img" />
+    <div class="hero-overlay">
+      <div class="overlay-tag">🎟️ Limited Tickets</div>
+      <div class="overlay-price">$15</div>
+      <div class="overlay-price-note">per person · numbers limited</div>
+      <div class="overlay-divider"></div>
+      <ul class="overlay-includes">
+        <li>Entry on the night</li>
+        <li>One drink on arrival</li>
+        <li>One raffle entry</li>
+        <li>Live demos & market stall</li>
+      </ul>
+      <a href="https://events.humanitix.com/pico-hard-launch-open-studio-night" target="_blank" class="overlay-btn">Buy Tickets Now →</a>
+      <p class="overlay-limited">Every dollar goes toward new tools & equipment</p>
     </div>
+  </div>
 
-    <div class="hero-right">
-      <div class="hero-img-placeholder">
-        <div class="placeholder-text">
-          <div class="icon">🛠️</div>
-          <div>Your space photo here</div>
-        </div>
-      </div>
-      <div class="hero-stats">
-        <div class="stat">
-          <div class="stat-num">19</div>
-          <div class="stat-label">Studios</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">20+</div>
-          <div class="stat-label">Members</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">2026</div>
-          <div class="stat-label">Est.</div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- MOBILE TICKET -->
+  <div class="mobile-ticket">
+    <div class="overlay-tag">🎟️ Limited Tickets</div>
+    <div class="overlay-price">$15</div>
+    <div class="overlay-price-note">Includes a drink + raffle entry · Numbers limited</div>
+    <a href="https://events.humanitix.com/pico-hard-launch-open-studio-night" target="_blank" class="overlay-btn">Buy Tickets Now →</a>
+  </div>
 
   <!-- MARQUEE -->
   <div class="marquee-wrap">
     <div class="marquee-track">
-      <span class="marquee-item">Studio Space <span class="sep">✦</span></span>
-      <span class="marquee-item">Shared Workshop <span class="sep">✦</span></span>
-      <span class="marquee-item">Not-for-Profit <span class="sep">✦</span></span>
+      <span class="marquee-item">June 13 <span class="sep">✦</span></span>
+      <span class="marquee-item">From 6PM <span class="sep">✦</span></span>
       <span class="marquee-item">Coburg North <span class="sep">✦</span></span>
-      <span class="marquee-item">Community Makers <span class="sep">✦</span></span>
-      <span class="marquee-item">Open to All <span class="sep">✦</span></span>
-      <span class="marquee-item">Tools & Equipment <span class="sep">✦</span></span>
-      <span class="marquee-item">Workshops & Events <span class="sep">✦</span></span>
-      <!-- duplicate for seamless loop -->
-      <span class="marquee-item">Studio Space <span class="sep">✦</span></span>
-      <span class="marquee-item">Shared Workshop <span class="sep">✦</span></span>
-      <span class="marquee-item">Not-for-Profit <span class="sep">✦</span></span>
+      <span class="marquee-item">$15 Tickets <span class="sep">✦</span></span>
+      <span class="marquee-item">Open Studio <span class="sep">✦</span></span>
+      <span class="marquee-item">Live Demos <span class="sep">✦</span></span>
+      <span class="marquee-item">Fire Pit & Music <span class="sep">✦</span></span>
+      <span class="marquee-item">Tacos & Margaritas <span class="sep">✦</span></span>
+      <span class="marquee-item">Fundraiser Raffle <span class="sep">✦</span></span>
+      <span class="marquee-item">Market Stall <span class="sep">✦</span></span>
+      <span class="marquee-item">June 13 <span class="sep">✦</span></span>
+      <span class="marquee-item">From 6PM <span class="sep">✦</span></span>
       <span class="marquee-item">Coburg North <span class="sep">✦</span></span>
-      <span class="marquee-item">Community Makers <span class="sep">✦</span></span>
-      <span class="marquee-item">Open to All <span class="sep">✦</span></span>
-      <span class="marquee-item">Tools & Equipment <span class="sep">✦</span></span>
-      <span class="marquee-item">Workshops & Events <span class="sep">✦</span></span>
+      <span class="marquee-item">$15 Tickets <span class="sep">✦</span></span>
+      <span class="marquee-item">Open Studio <span class="sep">✦</span></span>
+      <span class="marquee-item">Live Demos <span class="sep">✦</span></span>
+      <span class="marquee-item">Fire Pit & Music <span class="sep">✦</span></span>
+      <span class="marquee-item">Tacos & Margaritas <span class="sep">✦</span></span>
+      <span class="marquee-item">Fundraiser Raffle <span class="sep">✦</span></span>
+      <span class="marquee-item">Market Stall <span class="sep">✦</span></span>
     </div>
   </div>
 
+  <!-- EVENT STRIP -->
+  <div class="event-strip">
+    <div class="strip-details">
+      <div class="strip-item">
+        <div class="strip-label">Date</div>
+        <div class="strip-value">Friday 13 June</div>
+      </div>
+      <div class="strip-item">
+        <div class="strip-label">Time</div>
+        <div class="strip-value">From 6PM</div>
+      </div>
+      <div class="strip-item">
+        <div class="strip-label">Location</div>
+        <div class="strip-value">Coburg North</div>
+      </div>
+      <div class="strip-item">
+        <div class="strip-label">Ticket Price</div>
+        <div class="strip-value">$15</div>
+      </div>
+      <div class="strip-item">
+        <div class="strip-label">Includes</div>
+        <div class="strip-value">Drink + Raffle</div>
+      </div>
+    </div>
+    <a href="https://events.humanitix.com/pico-hard-launch-open-studio-night" target="_blank" class="strip-btn">Buy Tickets on Humanitix →</a>
+  </div>
+
+  <!-- WHAT'S ON -->
+  <section class="whats-on">
+    <div class="whats-on-header">
+      <p class="eyebrow">On the Night</p>
+      <h2 class="section-title">Here's what to <span class="accent">expect.</span></h2>
+    </div>
+    <div class="night-grid">
+      <div class="night-card">
+        <div class="night-icon">🏗️</div>
+        <div class="night-title">Open Studio Tour</div>
+        <div class="night-desc">See the space, the gear, and the possibilities.</div>
+      </div>
+      <div class="night-card">
+        <div class="night-icon">⚙️</div>
+        <div class="night-title">Live Demos</div>
+        <div class="night-desc">Watch community makers doing cool things with their hands.</div>
+      </div>
+      <div class="night-card">
+        <div class="night-icon">🔥</div>
+        <div class="night-title">Fire Pit & Music</div>
+        <div class="night-desc">All night long. Good vibes, good people.</div>
+      </div>
+      <div class="night-card">
+        <div class="night-icon">🌮</div>
+        <div class="night-title">Tacos & Margaritas</div>
+        <div class="night-desc">By donation. Fuel up while you explore.</div>
+      </div>
+      <div class="night-card">
+        <div class="night-icon">🎁</div>
+        <div class="night-title">Fundraiser Raffle</div>
+        <div class="night-desc">Prizes handcrafted and donated by our makers.</div>
+      </div>
+      <div class="night-card">
+        <div class="night-icon">🛍️</div>
+        <div class="night-title">Market Stall</div>
+        <div class="night-desc">Shop handmade goods from local makers.</div>
+      </div>
+    </div>
+  </section>
+
   <!-- ABOUT -->
-  <section class="about">
-    <div class="about-images">
-      <div class="about-img" style="background:var(--periwinkle)">🏗️</div>
-      <div class="about-img" style="background:var(--baby-blue)">🪚</div>
-      <div class="about-img" style="background:var(--peach)">🎨</div>
-    </div>
-    <div class="about-text">
-      <p class="section-eyebrow">Who We Are</p>
-      <h2 class="section-title">Built by makers,<br>for <span class="accent">makers.</span></h2>
-      <p class="section-body">
-        Pico Studio is a not-for-profit incorporated association based in Coburg North. We exist to make creative and maker work accessible — by sharing the cost of space, tools, and equipment across a community of people who love building things.
-      </p>
-      <div class="about-pillars">
-        <div class="pillar">
-          <div class="pillar-icon">🤝</div>
-          <div>
-            <div class="pillar-title">Community-run</div>
-            <div class="pillar-desc">Governed by our members. Every decision is made in the interest of the community.</div>
-          </div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-icon">💸</div>
-          <div>
-            <div class="pillar-title">Affordable access</div>
-            <div class="pillar-desc">Shared costs mean more people can access quality tools and space.</div>
-          </div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-icon">🌱</div>
-          <div>
-            <div class="pillar-title">Not-for-profit</div>
-            <div class="pillar-desc">Any surplus goes back into improving the space and supporting members.</div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <section class="about-pico">
+    <p class="eyebrow">What is Pico Studio?</p>
+    <h2>A community makerspace in Coburg North.</h2>
+    <p>Pico Studio is a not-for-profit makerspace — a shared workshop for makers, creators, tinkerers, and anyone who's ever wanted to build something with their hands. Run entirely by volunteers, for the community.</p>
   </section>
 
-  <!-- WHAT'S HERE -->
-  <section class="whats-here">
-    <p class="section-eyebrow">What We Offer</p>
-    <h2 class="section-title" style="color:white">Everything you need<br>to <span style="color:var(--lime)">get making.</span></h2>
-    <p class="section-body" style="color:rgba(255,255,255,0.6);margin-bottom:48px">
-      From a private studio to shared bench space, tools, workshops, and a community of fellow makers — it's all here.
-    </p>
-    <div class="cards-grid">
-      <a href="about.html" class="feature-card c-periwinkle">
-        <div class="card-icon">🏢</div>
-        <div class="card-title">Studio Rentals</div>
-        <div class="card-desc">Private studio spaces for artists, makers, and small creative businesses. Sizes and rates vary.</div>
-        <div class="card-link">View studios →</div>
-      </a>
-      <a href="workshop.html" class="feature-card c-lime">
-        <div class="card-icon">🪚</div>
-        <div class="card-title">Shared Workshop</div>
-        <div class="card-desc">Access to a fully equipped shared workshop including woodworking, metalwork, and hand tools.</div>
-        <div class="card-link">See the tools →</div>
-      </a>
-      <a href="events.html" class="feature-card c-peach">
-        <div class="card-icon">📅</div>
-        <div class="card-title">Workshops & Events</div>
-        <div class="card-desc">Regular workshops, skill shares, and community events open to members and the public.</div>
-        <div class="card-link">See what's on →</div>
-      </a>
-      <a href="membership.html" class="feature-card c-baby">
-        <div class="card-icon">🪪</div>
-        <div class="card-title">Membership</div>
-        <div class="card-desc">Join the community. Access the workshop, attend events, and be part of something worth building.</div>
-        <div class="card-link">Join us →</div>
-      </a>
-      <a href="contact.html" class="feature-card c-green">
-        <div class="card-icon">📬</div>
-        <div class="card-title">Get in Touch</div>
-        <div class="card-desc">Questions about studios, membership, or partnerships? We'd love to hear from you.</div>
-        <div class="card-link">Contact us →</div>
-      </a>
-    </div>
-  </section>
-
-  <!-- MEMBERSHIP TIERS -->
-  <section class="membership">
-    <p class="section-eyebrow">Membership</p>
-    <h2 class="section-title">Find the right<br><span class="accent">membership</span> for you.</h2>
-    <p class="section-body">Whether you want to support the community or get your hands on our tools every week — there's a tier that fits.</p>
-
-    <div class="tiers-grid">
-      <div class="tier-card t-community">
-        <div class="tier-badge">Community</div>
-        <div class="tier-name">Community</div>
-        <div class="tier-price-row">
-          <div class="tier-price">$20</div>
-          <div class="tier-freq">/ month</div>
-        </div>
-        <div class="tier-divider"></div>
-        <ul class="tier-perks">
-          <li>Member events & workshops</li>
-          <li>Monthly newsletter</li>
-          <li>Discounted day-pass rates</li>
-          <li>Voting rights at AGM</li>
-        </ul>
-        <a href="contact.html" class="tier-btn">Get Started</a>
-      </div>
-
-      <div class="tier-card t-maker">
-        <div class="tier-badge">★ Most Popular</div>
-        <div class="tier-name">Maker</div>
-        <div class="tier-price-row">
-          <div class="tier-price">$65</div>
-          <div class="tier-freq">/ month</div>
-        </div>
-        <div class="tier-divider"></div>
-        <ul class="tier-perks">
-          <li>Everything in Community</li>
-          <li>20 hrs/month workshop access</li>
-          <li>Shared storage locker</li>
-          <li>Tool induction included</li>
-          <li>Priority booking</li>
-        </ul>
-        <a href="contact.html" class="tier-btn">Join as Maker</a>
-      </div>
-
-      <div class="tier-card t-studio">
-        <div class="tier-badge">Studio</div>
-        <div class="tier-name">Studio</div>
-        <div class="tier-price-row">
-          <div class="tier-price">$150</div>
-          <div class="tier-freq">/ month</div>
-        </div>
-        <div class="tier-divider"></div>
-        <ul class="tier-perks">
-          <li>Everything in Maker</li>
-          <li>Dedicated desk or bench</li>
-          <li>Unlimited workshop access</li>
-          <li>24/7 keycard access</li>
-          <li>Members Directory profile</li>
-        </ul>
-        <a href="contact.html" class="tier-btn">Enquire Now</a>
-      </div>
-
-      <div class="tier-card t-concession">
-        <div class="tier-badge">Concession</div>
-        <div class="tier-name">Concession</div>
-        <div class="tier-price-row">
-          <div class="tier-price">$35</div>
-          <div class="tier-freq">/ month</div>
-        </div>
-        <div class="tier-divider"></div>
-        <ul class="tier-perks">
-          <li>Maker tier benefits</li>
-          <li>Valid concession card required</li>
-          <li>Limited spots available</li>
-        </ul>
-        <a href="contact.html" class="tier-btn">Apply</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- STUDIO SPACE -->
-  <section class="studio-space">
-    <div class="studio-img-grid">
-      <div class="studio-img-block">🔨</div>
-      <div class="studio-img-block">⚙️</div>
-      <div class="studio-img-block">🛠️</div>
-    </div>
-    <div class="studio-text">
-      <p class="section-eyebrow">The Workshop</p>
-      <h2 class="section-title">Shared tools,<br><span class="accent">serious</span> capability.</h2>
-      <p class="section-body">
-        Our shared workshop is stocked with quality tools and equipment. Members get access to everything they need — without the cost of owning it all yourself.
-      </p>
-      <ul class="studio-list">
-        <li><span class="bullet"></span> Woodworking tools & benches</li>
-        <li><span class="bullet"></span> Metalworking & fabrication</li>
-        <li><span class="bullet"></span> Hand tools & power tools</li>
-        <li><span class="bullet"></span> Safety gear & inductions provided</li>
-        <li><span class="bullet"></span> Growing equipment library</li>
-      </ul>
-      <a href="workshop.html" class="btn-dark">Explore the Workshop</a>
-    </div>
-  </section>
-
-  <!-- CONTACT CTA -->
-  <section class="contact-cta">
-    <p class="section-eyebrow">Come Say Hello</p>
-    <h2>Ready to start making?</h2>
-    <p>Visit us at 14 Roosevelt Street, Coburg North — or get in touch and we'll show you around.</p>
-    <div class="contact-cta-btns">
-      <a href="membership.html" class="btn-lime">Join the Community</a>
-      <a href="contact.html" class="btn-orange">Get in Touch</a>
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="final-cta-inner">
+      <h2>Come along. Be part<br>of it from day one.</h2>
+      <p><strong>Friday 13 June · From 6PM · Coburg North</strong><br>$15 includes a drink + raffle entry · Numbers are limited</p>
+      <a href="https://events.humanitix.com/pico-hard-launch-open-studio-night" target="_blank" class="btn-white">Get Your $15 Ticket Now</a>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <div class="acknowledgement">
-      Pico Studio acknowledges Aboriginal and Torres Strait Islander peoples as the First Peoples and Traditional Custodians of the lands on which we live, work, and make.
-    </div>
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="index.html" class="nav-logo">PICO<span>_</span>STUDIO</a>
-        <p>A community-run, not-for-profit makerspace in Coburg North, Melbourne. Open to everyone.</p>
-        <p>14 Roosevelt Street<br>Coburg North VIC 3058</p>
-      </div>
-      <div class="footer-col">
-        <h4>Navigate</h4>
-        <ul>
-          <li><a href="about.html">About</a></li>
-          <li><a href="membership.html">Membership</a></li>
-          <li><a href="events.html">Events</a></li>
-          <li><a href="workshop.html">Workshop</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Membership</h4>
-        <ul>
-          <li><a href="membership.html">Community $20/mo</a></li>
-          <li><a href="membership.html">Maker $65/mo</a></li>
-          <li><a href="membership.html">Studio $150/mo</a></li>
-          <li><a href="membership.html">Concession $35/mo</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Connect</h4>
-        <ul>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">Facebook</a></li>
-          <li><a href="contact.html">Email Us</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2026 Pico Studio Incorporated. Not-for-profit organisation.</p>
-      <p>Made with care in Coburg North.</p>
-    </div>
+    <a href="#" class="footer-logo">PICO<span>_</span>STUDIO</a>
+    <p>14 Roosevelt Street, Coburg North VIC 3058</p>
+    <p>© 2026 Pico Studio Incorporated</p>
   </footer>
 
 </body>
